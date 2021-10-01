@@ -22,6 +22,7 @@ namespace UserMaintenance
             label1.Text = ResourceDefault.FullName;
             button1.Text = ResourceDefault.Add;
             button2.Text = ResourceDefault.Write;
+            button3.Text = ResourceDefault.Delete;
 
             listBox1.DataSource = users;
             listBox1.ValueMember = "ID";
@@ -51,6 +52,11 @@ namespace UserMaintenance
                 }
                 writer.Close();
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            users.Remove((User)listBox1.SelectedItem);
         }
     }
 }
