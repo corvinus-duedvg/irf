@@ -18,6 +18,10 @@ namespace SOAP
         public Form1()
         {
             InitializeComponent();
+            CallWebService();
+        }
+        void CallWebService()
+        {
             var mnbService = new MNBArfolyamServiceSoapClient();
             var request = new GetExchangeRatesRequestBody()
             {
@@ -28,6 +32,7 @@ namespace SOAP
             var response = mnbService.GetExchangeRates(request);
             var result = response.GetExchangeRatesResult;
         }
+        
     }
     
     
