@@ -25,11 +25,16 @@ namespace Mikroszim
             Population = GetPopulation(@"C:\Temp\nép.csv");
             BirthProbabilities = GetBP(@"C:\Temp\születés.csv");
             DeathProbabilities = GetDP(@"C:\Temp\halál.csv");
+            Simulation();
+        }
 
+        private void Simulation()
+        {
             for (int year = 2005; year <= 2024; year++)
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
+                    SimStep(year, Population[i]);
                 }
                 int nbrOfMales = (from x in Population
                                   where x.Gender == Gender.Male && x.IsAlive
@@ -41,6 +46,7 @@ namespace Mikroszim
                     string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales));
             }
         }
+
         public List<Person> GetPopulation(string csvpath)
         {
             List<Person> population = new List<Person>();
@@ -100,6 +106,30 @@ namespace Mikroszim
             }
 
             return dp;
+        }
+        private void SimStep(int year, Person person)
+        {
+            if (!person.IsAlive) return;
+            byte age = (byte)(year - person.BirthYear);
+            double pDeath = (from x in DeathProbabilities
+                             where x.Gender == person.Gender && x.Age == age
+                             select x.P).FirstOrDefault();
+            if (rng.NextDouble() <= pDeath)
+                person.IsAlive = false;
+            if (person.IsAlive && person.Gender == Gender.Female)
+            {
+                double pBirth = (from x in BirthProbabilities
+                                 where x.Age == age
+                                 select x.P).FirstOrDefault();
+                if (rng.NextDouble() <= pBirth)
+                {
+                    Person újszülött = new Person();
+                    újszülött.BirthYear = year;
+                    újszülött.NbrOfChildren = 0;
+                    újszülött.Gender = (Gender)(rng.Next(1, 3));
+                    Population.Add(újszülött);
+                }
+            }
         }
     }
 }
