@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Mikroszim.Entities
 {
-    class BirthProbability
+    public class BirthProbability
     {
-        public int kor { get; set; }
-        public int children { get; set; }
+        public int Age { get; set; }
+        public int NbrOfChildren { get; set; }
         public double P { get; set; }
     }
 }

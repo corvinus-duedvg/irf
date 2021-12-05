@@ -8,7 +8,7 @@ namespace Mikroszim.Entities
 {
     public class DeathProbability
     {
-        public int age { get; set; }
+        public int Age { get; set; }
         public Gender Gender { get; set; }
         public double P { get; set; }
     }
