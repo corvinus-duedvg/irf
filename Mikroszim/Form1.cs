@@ -17,34 +17,44 @@ namespace Mikroszim
         List<Person> Population = new List<Person>();
         List<BirthProbability> BirthProbabilities = new List<BirthProbability>();
         List<DeathProbability> DeathProbabilities = new List<DeathProbability>();
+
+        List<int> NbrofFemales = new List<int>();
+        List<int> NbrofMales = new List<int>();
         Random rng = new Random(1234);
         public Form1()
         {
             InitializeComponent();
 
-            Population = GetPopulation(@"C:\Temp\nép.csv");
+            Population = GetPopulation(tbox_path.Text);
             BirthProbabilities = GetBP(@"C:\Temp\születés.csv");
             DeathProbabilities = GetDP(@"C:\Temp\halál.csv");
-            Simulation();
         }
 
         private void Simulation()
         {
-            for (int year = 2005; year <= 2024; year++)
+            rtb_sim.Text = "";
+            NbrofFemales.Clear();
+            NbrofMales.Clear();
+            for (int year = 2005; year <= nup_endyear.Value; year++)
             {
                 for (int i = 0; i < Population.Count; i++)
                 {
                     SimStep(year, Population[i]);
                 }
-                int nbrOfMales = (from x in Population
-                                  where x.Gender == Gender.Male && x.IsAlive
-                                  select x).Count();
-                int nbrOfFemales = (from x in Population
-                                    where x.Gender == Gender.Female && x.IsAlive
-                                    select x).Count();
-                Console.WriteLine(
-                    string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales));
+                NbrofFemales.Clear();
+                NbrofMales.Clear();
+                NbrofMales.Add(
+                    (from x in Population
+                     where x.Gender == Gender.Male && x.IsAlive
+                     select x).Count()
+                                );
+                NbrofFemales.Add(
+                    (from x in Population
+                     where x.Gender == Gender.Female && x.IsAlive
+                     select x).Count()
+                     );   
             }
+            DisplayResults();
         }
 
         public List<Person> GetPopulation(string csvpath)
@@ -123,13 +133,42 @@ namespace Mikroszim
                                  select x.P).FirstOrDefault();
                 if (rng.NextDouble() <= pBirth)
                 {
-                    Person újszülött = new Person();
-                    újszülött.BirthYear = year;
-                    újszülött.NbrOfChildren = 0;
-                    újszülött.Gender = (Gender)(rng.Next(1, 3));
+                    Person újszülött = new Person
+                    {
+                        BirthYear = year,
+                        NbrOfChildren = 0,
+                        Gender = (Gender)(rng.Next(1, 3))
+                    };
                     Population.Add(újszülött);
                 }
             }
+        }
+
+        private void but_path_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            tbox_path.Text = ofd.FileName;
+            Population.Clear();
+            Population = GetPopulation(tbox_path.Text);
+        }
+
+        private void but_sim_Click(object sender, EventArgs e)
+        {
+            Simulation();
+        }
+
+        private void DisplayResults()
+        {
+            string display="";
+            if (NbrofFemales!=NbrofMales)
+            {
+                return;
+            }
+            for (int i = 0; i < NbrofFemales.Count; i++)
+            {
+                display = string.Concat(display, @"Szimulációs év: {i+2005} \n \t Lányok: {NbrofFemales[i]} \n \t Fiúk: {NbrofMales[i]} \n");
+            }
+            rtb_sim.Text = display;
         }
     }
 }
