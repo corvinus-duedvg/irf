@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldsHardestGame", "WorldsHardestGame.csproj", "{557CED83-21E9-4F57-9CD3-FD35778CEC6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "newWHG", "newWHG.csproj", "{32F4F91C-3A05-4343-8E83-F9873AFBA490}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{557CED83-21E9-4F57-9CD3-FD35778CEC6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{557CED83-21E9-4F57-9CD3-FD35778CEC6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{557CED83-21E9-4F57-9CD3-FD35778CEC6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{557CED83-21E9-4F57-9CD3-FD35778CEC6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32F4F91C-3A05-4343-8E83-F9873AFBA490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32F4F91C-3A05-4343-8E83-F9873AFBA490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32F4F91C-3A05-4343-8E83-F9873AFBA490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32F4F91C-3A05-4343-8E83-F9873AFBA490}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A8EFF232-60ED-4472-A153-9B3AAD5F6694}
+		SolutionGuid = {82DBB882-2E55-42B9-BDA6-917876F0C974}
 	EndGlobalSection
 EndGlobal
