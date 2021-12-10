@@ -19,6 +19,7 @@ namespace newWHG
         int nbrOfSteps = 10;
         int nbrOfStepsIncrement = 10;
         int generation = 1;
+        Brain winnerBrain = null;
 
         public Form1()
         {
@@ -46,6 +47,15 @@ namespace newWHG
                              orderby p.GetFitness() descending
                              select p;
             var topPerformers = playerList.Take(populationSize / 2).ToList();
+            var winners = from p in topPerformers
+                          where p.IsWinner
+                          select p;
+            if (winners.Count() > 0)
+            {
+                winnerBrain = winners.FirstOrDefault().Brain.Clone();
+                gc.GameOver -= Gc_GameOver;
+                return;
+            }
             foreach (var p in topPerformers)
             {
                 var b = p.Brain.Clone();
@@ -59,6 +69,7 @@ namespace newWHG
                 else
                     gc.AddPlayer(b.Mutate());
             }
+           
             gc.Start();
         }
     }
